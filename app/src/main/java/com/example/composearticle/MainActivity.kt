@@ -13,15 +13,20 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -39,16 +44,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             ComposeArticleTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Column {
-                        Row {
-                            TextComposable()
-                            ImageComposable()
-                        }
-                        Row {
-                            RowComposable()
-                            ColumnComposable()
-                        }
-                    }
+                    NameCard()
                 }
             }
         }
@@ -56,112 +52,68 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun TextComposable(modifier: Modifier = Modifier) {
+fun NameCard(modifier: Modifier = Modifier) {
+
     Column(modifier = Modifier
-        .fillMaxSize(0.5F)
-        .background(Color(0xFFEADDFF))
-        .padding(16.dp),
+        .fillMaxSize(),
         verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(
-            text = "Text composable",
-            fontWeight = FontWeight.Bold,
+        val image = painterResource(R.drawable.android_logo)
+        Image(
+            painter = image,
+            contentDescription = null,
             modifier = Modifier
-                .padding(bottom = 16.dp)
+                .size(100.dp)
+                .clip(RoundedCornerShape(8.dp))
+                .background(Color(0xFF00008B))
+
+
         )
         Text(
-            text = "Displays text and follows the recommended Material Design guidelines.",
-            textAlign = TextAlign.Justify
-
+            text = "Eirik Horgen Andresen",
+            fontWeight = FontWeight.Bold,
+            fontSize = 22.sp,
+            modifier = Modifier
+                .padding(vertical = 8.dp)
+        )
+        Text(
+            text = "Frontend Developer",
+            color = Color.Magenta
         )
     }
 }
 
-@Composable
-fun ImageComposable(modifier: Modifier = Modifier) {
-    Column(modifier = Modifier
-        .fillMaxHeight(0.5F)
-        .background(Color(0xFFD0BCFF))
-        .padding(16.dp),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
-        Text(
-            text = "Image composable",
-            fontWeight = FontWeight.Bold,
-            modifier = Modifier
-                .padding(bottom = 16.dp)
-        )
-        Text(
-            text = "Creates a composable that lays out and draws a given Painter class object.",
-            textAlign = TextAlign.Justify
 
-        )
-    }
-}
 
-@Composable
-fun RowComposable(modifier: Modifier = Modifier) {
-    Column(modifier = Modifier
-        .fillMaxHeight(1.0F)
-        .fillMaxWidth(0.5F)
-        .background(Color(0xFFB69DF8))
-        .padding(16.dp),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
-        Text(
-            text = "Row composable",
-            fontWeight = FontWeight.Bold,
-            modifier = Modifier
-                .padding(bottom = 16.dp)
-        )
-        Text(
-            text = "A layout composable that places its children in a horizontal sequence.",
-            textAlign = TextAlign.Justify
+//@Composable
+//fun ImageComposable(modifier: Modifier = Modifier) {
+//    Column(modifier = Modifier
+//        .fillMaxHeight(0.5F)
+//        .background(Color(0xFFD0BCFF))
+//        .padding(16.dp),
+//        verticalArrangement = Arrangement.Center,
+//        horizontalAlignment = Alignment.CenterHorizontally,
+//    ) {
+//        Text(
+//            text = "Image composable",
+//            fontWeight = FontWeight.Bold,
+//            modifier = Modifier
+//                .padding(bottom = 16.dp)
+//        )
+//        Text(
+//            text = "Creates a composable that lays out and draws a given Painter class object.",
+//            textAlign = TextAlign.Justify
+//
+//        )
+//    }
+//}
 
-        )
-    }
-}
-
-@Composable
-fun ColumnComposable(modifier: Modifier = Modifier) {
-    Column(modifier = Modifier
-        .fillMaxSize()
-        .background(Color(0xFFF6EDFF))
-        .padding(16.dp),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
-        Text(
-            text = "Column composable",
-            fontWeight = FontWeight.Bold,
-            modifier = Modifier
-                .padding(bottom = 16.dp)
-        )
-        Text(
-            text = "A layout composable that places its children in a vertical sequence.",
-            textAlign = TextAlign.Justify
-
-        )
-    }
-}
-
-@Preview(showBackground = true)
+@Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun ArticlePreview() {
     ComposeArticleTheme {
-        Column {
-            Row {
-                TextComposable()
-                ImageComposable()
-            }
-            Row {
-                RowComposable()
-                ColumnComposable()
-            }
-        }
+        NameCard()
     }
 }
 
