@@ -33,8 +33,15 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.composearticle.ui.theme.ComposeArticleTheme
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.unit.dp
-
-
+import androidx.compose.material3.Icon
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.foundation.layout.Arrangement.Horizontal
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.material.icons.filled.Call
+import androidx.compose.material.icons.filled.Email
+import androidx.compose.material.icons.filled.Share
+import androidx.compose.ui.graphics.vector.ImageVector
 
 class MainActivity : ComponentActivity() {
 
@@ -43,8 +50,21 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             ComposeArticleTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    NameCard()
+                Scaffold(
+                    modifier = Modifier
+                        .fillMaxSize()
+                ) { innerPadding ->
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(innerPadding)
+                    ) {
+                        NameCard()
+                        InfoCard(
+                            icon = Icons.Default.Call,
+                            content = "+47 907 11 942",
+                            modifier = Modifier.align(Alignment.CenterHorizontally)
+                        )                    }
                 }
             }
         }
@@ -55,7 +75,8 @@ class MainActivity : ComponentActivity() {
 fun NameCard(modifier: Modifier = Modifier) {
 
     Column(modifier = Modifier
-        .fillMaxSize(),
+        .fillMaxWidth()
+        .fillMaxHeight(fraction = 0.7f),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -79,41 +100,67 @@ fun NameCard(modifier: Modifier = Modifier) {
         )
         Text(
             text = "Frontend Developer",
-            color = Color.Magenta
+            color = Color(0xFF3ddc84)            ,
+            fontWeight = FontWeight.SemiBold
         )
     }
 }
 
 
-
-//@Composable
-//fun ImageComposable(modifier: Modifier = Modifier) {
-//    Column(modifier = Modifier
-//        .fillMaxHeight(0.5F)
-//        .background(Color(0xFFD0BCFF))
-//        .padding(16.dp),
-//        verticalArrangement = Arrangement.Center,
-//        horizontalAlignment = Alignment.CenterHorizontally,
-//    ) {
-//        Text(
-//            text = "Image composable",
-//            fontWeight = FontWeight.Bold,
-//            modifier = Modifier
-//                .padding(bottom = 16.dp)
-//        )
-//        Text(
-//            text = "Creates a composable that lays out and draws a given Painter class object.",
-//            textAlign = TextAlign.Justify
-//
-//        )
-//    }
-//}
+@Composable
+fun InfoCard(
+    icon: ImageVector,
+    content: String,
+    modifier: Modifier = Modifier
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 16.dp, horizontal = 100.dp), // Add padding if needed
+        horizontalArrangement = Arrangement.Center, // Center horizontally
+        verticalAlignment = Alignment.CenterVertically //
+    ) {
+        Icon(
+            imageVector = icon,
+            contentDescription = null,
+            //tint = Color(0xFF3ddc84), // Optional: Set the tint color,
+            modifier = Modifier.size(24.dp)
+        )
+        Spacer(modifier = Modifier.padding(8.dp))
+        Text(
+            text = content,
+            textAlign = TextAlign.Start,
+            modifier = Modifier.weight(1f)
+        )
+    }
+}
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun ArticlePreview() {
     ComposeArticleTheme {
-        NameCard()
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+        ) {
+            NameCard()
+            //Spacer(modifier = Modifier)
+            InfoCard(
+                icon = Icons.Default.Call,
+                content = "+47 907 11 942",
+                modifier = Modifier.align(Alignment.CenterHorizontally)
+            )
+            InfoCard(
+                icon = Icons.Default.Share,
+                content = "@ehandresen",
+                modifier = Modifier.align(Alignment.CenterHorizontally)
+            )
+            InfoCard(
+                icon = Icons.Default.Email,
+                content = "ei.an@dev.com",
+                modifier = Modifier.align(Alignment.CenterHorizontally)
+            )
+        }
     }
 }
 
