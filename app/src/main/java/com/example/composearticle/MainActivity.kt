@@ -64,7 +64,17 @@ class MainActivity : ComponentActivity() {
                             icon = Icons.Default.Call,
                             content = "+47 907 11 942",
                             modifier = Modifier.align(Alignment.CenterHorizontally)
-                        )                    }
+                        )
+                        InfoCard(
+                            icon = Icons.Default.Share,
+                            content = "@ehandresen",
+                            modifier = Modifier.align(Alignment.CenterHorizontally)
+                        )
+                        InfoCard(
+                            icon = Icons.Default.Email,
+                            content = "ei.an@dev.com",
+                            modifier = Modifier.align(Alignment.CenterHorizontally)
+                        )}
                 }
             }
         }
@@ -73,6 +83,7 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun NameCard(modifier: Modifier = Modifier) {
+    val x: String? = null
 
     Column(modifier = Modifier
         .fillMaxWidth()
